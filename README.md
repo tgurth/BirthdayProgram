@@ -1,4 +1,4 @@
-# BirthdayProgram
+# BirthdayTemplate
 Template Program to be used for Birthdays!
 
 
