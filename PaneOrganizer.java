@@ -98,7 +98,7 @@ public class PaneOrganizer {
      * Method to create the timeline the animation plays off of
      */
     public void createTimeLine() {
-        KeyFrame kf = new KeyFrame(Duration.seconds(2), (e) -> this.animateCake());
+        KeyFrame kf = new KeyFrame(Duration.seconds(1), (e) -> this.animateCake());
 
         Timeline tm = new Timeline(kf);
         tm.setCycleCount(Animation.INDEFINITE);
