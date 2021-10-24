@@ -9,4 +9,6 @@ public class Constants {
     public static final String PASSWORD = "Thayer";
     public static final String WRONG = "Try again! Just one word!";
 
+    public static final String BACKGROUND_COLOR = "-fx-background-color: #E5E697;";
+
 }

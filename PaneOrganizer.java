@@ -89,7 +89,7 @@ public class PaneOrganizer {
         Label birthdayLabel2 = new Label(Constants.MESSAGE);
         Label birthdayLabel3 = new Label(Constants.FROM);
         this.birthdayRoot.getChildren().addAll(birthdayLabel, this.cake, birthdayLabel2, birthdayLabel3);
-        this.birthdayRoot.setStyle("-fx-background-color: #E5E697;");
+        this.birthdayRoot.setStyle(Constants.BACKGROUND_COLOR);
         createTimeLine();
         return this.birthdayRoot;
     }
@@ -98,11 +98,17 @@ public class PaneOrganizer {
      * Method to create the timeline the animation plays off of
      */
     public void createTimeLine() {
-        KeyFrame kf = new KeyFrame(Duration.seconds(1), (e) -> this.animateCake());
+        KeyFrame kf = new KeyFrame(Duration.seconds(0.01), (e) -> this.animateCake());
 
         Timeline tm = new Timeline(kf);
         tm.setCycleCount(Animation.INDEFINITE);
         tm.play();
+
+        KeyFrame kfStreamers = new KeyFrame(Duration.seconds(0.03), (e) -> this.animateStreamers());
+
+        Timeline tmStreamers = new Timeline(kfStreamers);
+        tmStreamers.setCycleCount(100);
+        tmStreamers.play();
     }
 
     /**
@@ -110,18 +116,23 @@ public class PaneOrganizer {
      * it reaches a rotation of 10 in either direction
      */
     public void animateCake() {
-        if (this.cake.getRotate() == 10) {
+        if (Math.abs(this.cake.getRotate() - 10) <= 0.0001) {
             this.foo = true;
-        } else if (this.cake.getRotate() == -10) {
+        } else if (Math.abs(this.cake.getRotate() + 10) <= 0.0001) {
             this.foo = false;
         }
 
         if (this.foo) {
-            this.cake.setRotate(this.cake.getRotate() - 0.4);
+            this.cake.setRotate(this.cake.getRotate() - 0.1);
         } else {
-            this.cake.setRotate(this.cake.getRotate() + 0.4);
+            this.cake.setRotate(this.cake.getRotate() + 0.1);
         }
+    }
 
-        System.out.println(this.cake.getRotate());
+    /**
+     * Method used to animate the streamers and confetti that will fall from the top of the screen.
+     */
+    public void animateStreamers() {
+
     }
 }
