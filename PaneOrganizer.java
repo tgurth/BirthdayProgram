@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import javafx.scene.paint.Color;
@@ -27,10 +28,14 @@ public class PaneOrganizer {
     private VBox birthdayRoot;
     private ImageView cake;
     private boolean foo = false;
+    private Pane confettiPane;
 
 
     public PaneOrganizer(Stage stage) {
         this.birthdayRoot = new VBox();
+        this.confettiPane = new Pane();
+
+        this.birthdayRoot.getChildren().add(confettiPane);
         this.mainStage = stage;
         this.root = new VBox();
         this.myLabel = new Label(Constants.HINT);
@@ -79,18 +84,26 @@ public class PaneOrganizer {
     public VBox getBirthdayRoot() {
         Label birthdayLabel = new Label("Happy Birthday!");
         birthdayLabel.setStyle("-fx-font-size: 30");
-        this.birthdayRoot.setAlignment(Pos.CENTER);
         String source = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Cartoon_Happy_Birthday_Cake.svg/2048px-Cartoon_Happy_Birthday_Cake.svg.png";
         this.cake = new ImageView(new Image(source));
         this.cake.setFitWidth(200);
         this.cake.setPreserveRatio(true);
         this.cake.setSmooth(true);
         this.cake.setCache(true);
-        Label birthdayLabel2 = new Label(Constants.MESSAGE);
-        Label birthdayLabel3 = new Label(Constants.FROM);
-        this.birthdayRoot.getChildren().addAll(birthdayLabel, this.cake, birthdayLabel2, birthdayLabel3);
+
+        Label message = new Label(Constants.MESSAGE);
+        message.setStyle("-fx-font-size: 20");
+
+        Label from = new Label(Constants.FROM);
+        Label margin = new Label(" ");
+        margin.setStyle("-fx-font-size: 70");
+
+
+        this.birthdayRoot.getChildren().addAll(birthdayLabel, this.cake, message, from, margin);
         this.birthdayRoot.setStyle(Constants.BACKGROUND_COLOR);
+        this.birthdayRoot.setAlignment(Pos.CENTER);
         createTimeLine();
+
         return this.birthdayRoot;
     }
 
@@ -107,7 +120,7 @@ public class PaneOrganizer {
         KeyFrame kfStreamers = new KeyFrame(Duration.seconds(0.03), (e) -> this.animateStreamers());
 
         Timeline tmStreamers = new Timeline(kfStreamers);
-        tmStreamers.setCycleCount(100);
+        tmStreamers.setCycleCount(500);
         tmStreamers.play();
     }
 
@@ -133,6 +146,6 @@ public class PaneOrganizer {
      * Method used to animate the streamers and confetti that will fall from the top of the screen.
      */
     public void animateStreamers() {
-
+        new Confetti(this.confettiPane);
     }
 }
